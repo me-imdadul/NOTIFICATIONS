@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:untitled1/SMSController.dart';
+import 'package:untitled1/smscontroller.dart';
 
 class homepage extends StatelessWidget{
   const homepage({super.key});
