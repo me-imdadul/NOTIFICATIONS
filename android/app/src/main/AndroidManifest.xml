@@ -5,10 +5,8 @@
         android:label="untitled1"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
-        <service android:name="im.zoe.labs.flutter_notification_listener.NotificationsHandlerService"
-            android:exported="false"
-            android:label="Flutter Notifications Handler"
-            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+        <service android:label="notifications" android:name="notification.listener.service.NotificationListener"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" android:exported="true">
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
