@@ -13,7 +13,7 @@ class homepage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context)
-  { SMSController smsController = Get.put(SMSController()
+  { SMSController smsController = Get.put(SMSController());
   return Scaffold(
     appBar: AppBar(
       title:Text('Notification Reader'),
@@ -35,33 +35,38 @@ class homepage extends StatelessWidget{
                     (event)=>
                         SingleChildScrollView(
                           scrollDirection: Axis.vertical,
-                          child: Row(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.all(10),
-                                color:Colors.black,
-                                padding: EdgeInsets.all(10),
-                                child: Column(
-                                children: [
-                                  Row(
+                          child: Expanded(flex: 6,
+                            child: Row(
+                              children: [
+                                Expanded(flex: 6,
+                                  child: Container(
+                                    margin: EdgeInsets.all(10),
+                                    color:Colors.black,
+                                    padding: EdgeInsets.all(10),
+                                    child: Column(
                                     children: [
-      
-                                     // Text(event.toString()),
-                                      Text(event.toString(),style: TextStyle(color: Colors.white70),),
-      
+                                      Row(
+                                        children: [
+
+                                         // Text(event.toString()),
+                                          Expanded(flex:6,child: Text(event.title.toString(),style: TextStyle(color: Colors.white70),)),
+                                          Expanded(flex:6,child: Text(event.content.toString(),style: TextStyle(color: Colors.white70),)),
+
+                                        ],
+                                      ),
+                                   //   Row(
+                                     //   children: [
+                                       //   Text(event.title)
+                                        //],
+                                     // )
+
                                     ],
                                   ),
-                               //   Row(
-                                 //   children: [
-                                   //   Text(event.title)
-                                    //],
-                                 // )
-      
-                                ],
-                              ),
-      
-                              ),
-                            ],
+
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         )
               )
@@ -73,7 +78,5 @@ class homepage extends StatelessWidget{
       ),
     ),
   );
-  }
-}
   }
 }
