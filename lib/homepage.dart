@@ -1,6 +1,3 @@
-
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled1/smscontroller.dart';
@@ -8,75 +5,90 @@ import 'package:notification_listener_service/notification_listener_service.dart
 
 import 'smscontroller.dart';
 
-class homepage extends StatelessWidget{
+class homepage extends StatefulWidget {
   const homepage({super.key});
 
   @override
-  Widget build(BuildContext context)
-  { SMSController smsController = Get.put(SMSController());
-  return Scaffold(
-    appBar: AppBar(
-      title:Text('Notification Reader'),
-      backgroundColor: Colors.purple,
-    ),
-    body: SingleChildScrollView(
-      child: Column(
-        children: [
-          ElevatedButton(
-            onPressed: () {
-              smsController.requestForPermission();
-            },
-            child: Text('Button'),
-          ),
+  State<homepage> createState() => _homepageState();
+}
 
-          Obx(
-              ()=> Column(children:smsController.notificationList
-                  .map(
-                    (event)=>
-                        SingleChildScrollView(
-                          scrollDirection: Axis.vertical,
-                          child: Expanded(flex: 6,
-                            child: Row(
-                              children: [
-                                Expanded(flex: 6,
-                                  child: Container(
-                                    margin: EdgeInsets.all(10),
-                                    color:Colors.black,
-                                    padding: EdgeInsets.all(10),
-                                    child: Column(
-                                    children: [
-                                      Row(
+class _homepageState extends State<homepage> {
+  SMSController smsController = Get.put(SMSController());
+  @override
+  void initState() {
+     smsController.loadNotificationList();
+    super.initState();
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Notification Reader'),
+        backgroundColor: Colors.purple,
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                smsController.requestForPermission();
+              },
+              child: Text('Button'),
+            ),
+            Obx(() => Column(
+                  children: smsController.mapEvent
+                      .map((event) => SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: Expanded(
+                              flex: 6,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 6,
+                                    child: Container(
+                                      margin: EdgeInsets.all(10),
+                                      color: Colors.black,
+                                      padding: EdgeInsets.all(10),
+                                      child: Column(
                                         children: [
-
-                                         // Text(event.toString()),
-                                          Expanded(flex:6,child: Text(event.title.toString(),style: TextStyle(color: Colors.white70),)),
-                                          Expanded(flex:6,child: Text(event.content.toString(),style: TextStyle(color: Colors.white70),)),
-
+                                          Row(
+                                            children: [
+                                              // Text(event.toString()),
+                                              Expanded(
+                                                  flex: 6,
+                                                  child: Text(
+                                                    event['title'],
+                                                    style: TextStyle(
+                                                        color: Colors.white70),
+                                                  )),
+                                              Expanded(
+                                                  flex: 6,
+                                                  child: Text(
+                                                    event['content'],
+                                                    style: TextStyle(
+                                                        color: Colors.white70),
+                                                  )),
+                                            ],
+                                          ),
+                                          //   Row(
+                                          //   children: [
+                                          //   Text(event.title)
+                                          //],
+                                          // )
                                         ],
                                       ),
-                                   //   Row(
-                                     //   children: [
-                                       //   Text(event.title)
-                                        //],
-                                     // )
-
-                                    ],
+                                    ),
                                   ),
-
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        )
-              )
-                  .toList(),
-              )
-          )
-        ],
-      
+                          ))
+                      .toList(),
+                ))
+          ],
+        ),
       ),
-    ),
-  );
+    );
   }
 }
